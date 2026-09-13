@@ -1,27 +1,27 @@
 # PulseCS — Customer Success Dashboard
 
-Projeto de portfólio de Fernando Simoni, desenvolvido com assistência de IA para explorar acompanhamento de carteira, retenção e indicadores de Customer Success.
+[Português](README.pt-BR.md)
 
-## Objetivo
+A portfolio project by [Fernando Simoni](https://github.com/fernandosimoni), built with AI assistance to explore account monitoring, retention and Customer Success reporting. The interface is in Brazilian Portuguese and sample records are fictional.
 
-Reunir indicadores de relacionamento com clientes e uma lista priorizada de contas para apoiar a análise de uma operação de Customer Success. A demonstração usa dados fictícios; não representa resultados profissionais reais.
+## Business use case
 
-## Funcionalidades
+Bring customer relationship indicators and a prioritized account list into one view, helping demonstrate how a Customer Success team might identify accounts needing attention.
 
-- Indicadores demonstrativos de clientes ativos, churn, NPS, CSAT, Health Score e SLA.
-- Gráfico de evolução da carteira e distribuição de saúde.
-- Lista de cinco contas fictícias que precisam de atenção.
-- Busca por nome, seleção de período e exportação CSV.
-- Importação de leads com preservação das colunas originais e busca em todos os campos.
-- Layout responsivo para computador e celular.
+## Features
 
-## Demonstração
+- Illustrative active-customer, churn, NPS, CSAT, Health Score and SLA indicators.
+- Portfolio evolution chart and health distribution.
+- Five fictional accounts needing attention.
+- Customer search, period selector and CSV export.
+- CSV lead import preserving original columns, with search across imported fields.
+- Responsive desktop and mobile layout.
 
-[PulseCS hospedado](https://pulse-cs-dashboard.fernandosimoniuk.chatgpt.site) — atualmente restrito à conta do proprietário. Para avaliar sem acesso, execute a cópia deste repositório conforme as instruções abaixo.
+## Try it
 
-## Executar localmente
+[Hosted PulseCS](https://pulse-cs-dashboard.fernandosimoniuk.chatgpt.site) is currently restricted to the owner's account. Reviewers can run the repository locally.
 
-Requisitos: Python 3 e navegador moderno.
+Requires Python 3 and a modern browser:
 
 ```bash
 git clone https://github.com/fernandosimoni/pulse-cs-dashboard.git
@@ -29,29 +29,27 @@ cd pulse-cs-dashboard
 python -m http.server 8000 --directory dist
 ```
 
-Abra http://localhost:8000 no navegador. O Chart.js e as fontes são carregados pela internet.
+Open http://localhost:8000. Chart.js and fonts load from the internet.
 
-## Roteiro de avaliação
+### Suggested walkthrough
 
-1. Busque “Vitta” e depois use “Limpar busca”.
-2. Altere o período para observar os dados demonstrativos.
-3. Exporte a lista em CSV.
-4. Importe um CSV com cabeçalhos e pesquise pelos campos do arquivo.
+1. Search for “Vitta”, then click “Limpar busca” to clear the search.
+2. Change the period to view the illustrative series.
+3. Export the sample account list.
+4. Import a CSV with headers and search across its columns.
 
-## Importação e privacidade
+## Data and privacy
 
-Aceita CSV separado por vírgula, ponto e vírgula ou tabulação, codificação UTF-8 ou Windows-1252, até 5 MB e 10.000 linhas. Os dados ficam somente na memória da página: importe novamente após recarregar. Nenhum lead importado é enviado ao servidor ou incluído neste repositório.
+CSV import supports comma, semicolon or tab delimiters, UTF-8 and Windows-1252, up to 5 MB and 10,000 rows. Imported data stays in page memory only and must be imported again after refresh. It is not uploaded to a server or included in this repository. Export downloads the full current list, regardless of search.
 
-Ao importar, o painel oculta os indicadores fictícios e mostra as colunas do arquivo. Uma lista de leads não permite calcular churn, NPS, CSAT ou SLA automaticamente. A exportação baixa a lista completa, independentemente da busca.
+Importing leads hides the fictional metrics and displays the file's original columns. A lead list alone cannot supply churn, NPS, CSAT or SLA measurements.
 
-## Limites da demonstração
+## Demo limitations
 
-Os indicadores são valores ilustrativos predefinidos, não calculados a partir dos cinco clientes da tabela. A seleção de período altera parte dos indicadores e a série do gráfico; não recalcula toda a página. Não há banco de dados, histórico, integração com CRM externo ou sincronização entre usuários.
+Dashboard metrics are predefined illustrative values, not calculated from the five table records. Changing the period updates selected metrics and the chart series, not every component. There is no database, persistent history, external CRM integration or multi-user synchronization.
 
-## Tecnologias
+This is a portfolio demonstration, not a claim of real customer outcomes.
 
-HTML5, CSS3, JavaScript e Chart.js.
+## Stack
 
-## Autor
-
-[Fernando Simoni](https://github.com/fernandosimoni) — Economista.
+HTML5 · CSS3 · JavaScript · Chart.js
