@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Dashboard de Customer Success com indicadores de churn, NPS, CSAT, health score e SLA." />
+  <title>PulseCS — Customer Success Dashboard</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230a0f1e'/%3E%3Cpath d='M12 35h10l5-13 9 25 6-15h10' fill='none' stroke='%2337e5a1' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">P</span><span>Pulse<span>CS</span></span></div>
+      <nav aria-label="Navegação principal">
+        <a class="active" href="#overview"><span>⌁</span> Visão geral</a>
+        <a href="#customers"><span>◫</span> Clientes</a>
+        <a href="#health"><span>♡</span> Health Score</a>
+        <a href="#reports"><span>▥</span> Relatórios</a>
+      </nav>
+      <div class="sidebar-foot">
+        <div class="profile-avatar">FS</div>
+        <div><strong>Fernando Simoni</strong><small>Customer Success</small></div>
+      </div>
+    </aside>
+
+    <main>
+      <header>
+        <div><p class="eyebrow">CUSTOMER SUCCESS</p><h1>Visão geral</h1><p class="muted">Acompanhe a saúde da carteira e antecipe riscos.</p></div>
+        <div class="header-actions">
+          <label class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Buscar cliente" aria-label="Buscar cliente" /></label>
+          <select id="periodSelect" aria-label="Selecionar período"><option value="30">Últimos 30 dias</option><option value="90">Últimos 90 dias</option><option value="180">Últimos 6 meses</option></select>
+        </div>
+      </header>
+
+      <section class="kpis" id="overview" aria-label="Principais indicadores">
+        <article class="kpi"><div class="kpi-top"><span>Clientes ativos</span><i class="icon blue">◉</i></div><strong id="activeCustomers">248</strong><small class="positive">↗ 8,3% <em>vs. período anterior</em></small></article>
+        <article class="kpi"><div class="kpi-top"><span>Churn mensal</span><i class="icon coral">↘</i></div><strong id="churnRate">2,4%</strong><small class="positive">↘ 0,6 p.p. <em>vs. período anterior</em></small></article>
+        <article class="kpi"><div class="kpi-top"><span>NPS</span><i class="icon violet">★</i></div><strong id="npsScore">72</strong><small class="positive">↗ 5 pontos <em>excelente</em></small></article>
+        <article class="kpi"><div class="kpi-top"><span>CSAT</span><i class="icon mint">✓</i></div><strong id="csatScore">94%</strong><small class="positive">↗ 2,1% <em>vs. período anterior</em></small></article>
+      </section>
+
+      <section class="grid-two">
+        <article class="panel chart-panel">
+          <div class="panel-head"><div><h2>Evolução da carteira</h2><p>Clientes ativos e churn nos últimos 6 meses</p></div><span class="legend"><i></i> Clientes ativos</span></div>
+          <div class="chart-wrap"><canvas id="growthChart"></canvas></div>
+        </article>
+        <article class="panel health-panel" id="health">
+          <div class="panel-head"><div><h2>Saúde da carteira</h2><p>Distribuição por Health Score</p></div><button class="ghost" type="button">Ver detalhes</button></div>
+          <div class="health-content"><div class="donut-wrap"><canvas id="healthChart"></canvas><div class="donut-center"><strong>248</strong><span>clientes</span></div></div>
+          <div class="health-legend"><div><span><i class="good"></i>Saudáveis</span><strong>168 <small>68%</small></strong></div><div><span><i class="attention"></i>Atenção</span><strong>52 <small>21%</small></strong></div><div><span><i class="risk"></i>Em risco</span><strong>28 <small>11%</small></strong></div></div></div>
+        </article>
+      </section>
+
+      <section class="grid-bottom">
+        <article class="panel risk-panel" id="customers">
+          <div class="panel-head"><div><h2>Clientes que precisam de atenção</h2><p>Priorizados por risco e valor da conta</p></div><div class="csv-actions"><button id="importBtn" class="outline" type="button">Importar CSV</button><input id="csvInput" type="file" accept=".csv,text/csv" hidden><button id="exportBtn" class="outline" type="button">Exportar CSV</button><button id="clearSearch" class="outline" type="button">Limpar busca</button><button id="demoBtn" class="outline" type="button" hidden>Voltar à demonstração</button></div></div>
+          <p id="csvStatus" role="status">5 clientes fictícios nesta lista. Importe um CSV com cabeçalhos para consultar seus leads.</p><div class="table-scroll"><table><thead><tr><th>Cliente</th><th>Health Score</th><th>MRR</th><th>Último contato</th><th>Risco</th><th>Responsável</th></tr></thead><tbody id="customerRows"></tbody></table></div>
+        </article>
+        <article class="panel sla-panel" id="reports">
+          <div class="panel-head"><div><h2>SLA de atendimento</h2><p>Performance da equipe no período</p></div></div>
+          <div class="sla-main"><div class="radial" style="--value:92"><div><strong>92%</strong><span>dentro do SLA</span></div></div></div>
+          <div class="sla-stats"><div><span>Tempo médio de resposta</span><strong>1h 42min</strong></div><div><span>Tickets resolvidos</span><strong>486</strong></div><div><span>Tempo médio de resolução</span><strong>8h 15min</strong></div></div>
+        </article>
+      </section>
+      <footer>Dados fictícios para demonstração • Projeto de portfólio de Fernando Simoni</footer>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
